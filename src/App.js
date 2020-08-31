@@ -1,7 +1,5 @@
 import React from "react";
-import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
-import { domain, authZeroClientId } from "./constants";
-import logo from "./logo.svg";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./App.css";
 
 const LoginButton = () => {
@@ -21,23 +19,43 @@ const LogoutButton = () => {
 };
 
 function App() {
-  return (
-    <Auth0Provider
-      domain={domain}
-      clientId={authZeroClientId}
-      redirectUri={window.location.origin}
-    >
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit s<code>src/App.js</code> and save to reload.
-          </p>
-          <LoginButton />
-          <LogoutButton />
-        </header>
+  const { isLoading, isAuthenticated, error } = useAuth0();
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <span>Still loading!</span>
       </div>
-    </Auth0Provider>
+    );
+  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        {!isAuthenticated && <LoginButton />}
+        {isAuthenticated && (
+          <>
+            <button
+              className="App-attentionButton"
+              onClick={() => {
+                console.log("hello!");
+              }}
+            >
+              Attention Please
+            </button>
+            <LogoutButton />
+          </>
+        )}
+      </header>
+    </div>
   );
 }
 
