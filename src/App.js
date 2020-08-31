@@ -19,7 +19,7 @@ const LogoutButton = () => {
 };
 
 function App() {
-  const { isLoading, isAuthenticated, error } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return (
