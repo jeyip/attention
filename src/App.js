@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { breathe } from "./api";
 import "./App.css";
 
 const LoginButton = () => {
@@ -45,8 +46,16 @@ function App() {
           <>
             <button
               className="App-attentionButton"
-              onClick={() => {
-                console.log("hello!");
+              onClick={async () => {
+                const result = await breathe({
+                  cycles: 1,
+                  toColor: "#ed43a0",
+                  period: 5,
+                  persist: false,
+                  powerOn: true,
+                });
+
+                console.log(result);
               }}
             >
               Attention Please
