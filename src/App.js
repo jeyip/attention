@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { breathe } from "./api";
 import "./App.css";
@@ -21,6 +21,7 @@ const LogoutButton = () => {
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
+  const [attentionButtonDisabled, setAttentionButtonDisabled] = useState(false);
 
   if (isLoading) {
     return (
@@ -45,9 +46,14 @@ function App() {
         {isAuthenticated && (
           <>
             <button
-              className="App-attentionButton"
+              className={`App-attentionButton ${
+                attentionButtonDisabled && "disabled"
+              }`}
+              disabled={attentionButtonDisabled}
               onClick={async () => {
-                const result = await breathe({
+                setAttentionButtonDisabled(true);
+
+                await breathe({
                   cycles: 1,
                   toColor: "#ed43a0",
                   period: 5,
@@ -55,7 +61,9 @@ function App() {
                   powerOn: true,
                 });
 
-                console.log(result);
+                setTimeout(() => {
+                  setAttentionButtonDisabled(false);
+                }, 5000);
               }}
             >
               Attention Please

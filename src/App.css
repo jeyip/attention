@@ -41,6 +41,15 @@
   transition: background-color 0.25s;
 }
 
+.App-attentionButton.disabled {
+  background-color: #d3d3d3;
+  cursor: auto;
+}
+
+.App-attentionButton.disabled:hover {
+  background-color: #d3d3d3;
+}
+
 .App-attentionButton:hover {
   background-color: #ed43a0;
 }
