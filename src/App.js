@@ -56,14 +56,15 @@ function App() {
                 await breathe({
                   cycles: 1,
                   toColor: "#ed43a0",
-                  period: 5,
+                  period: 7,
                   persist: false,
                   powerOn: true,
+                  peak: 0.4,
                 });
 
                 setTimeout(() => {
                   setAttentionButtonDisabled(false);
-                }, 5000);
+                }, 7000);
               }}
             >
               Attention Please
